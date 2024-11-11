@@ -28,10 +28,10 @@ $mail = new PHPMailer(true);
 try {
     // Server settings
     $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'smtp.example.com';                      // Set the SMTP server (use your SMTP server)
+    $mail->Host       = 'smtp.gmail.com';                      // Set the SMTP server (use your SMTP server)
     $mail->SMTPAuth   = true;                                    // Enable SMTP authentication
-    $mail->Username   = 'your_email@example.com';                // SMTP username
-    $mail->Password   = 'your_email_password';                   // SMTP password
+    $mail->Username   = 'kasia@example.com';                // SMTP username
+    $mail->Password   = 'ChuckBassV1P3d!t';                   // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;          // Enable TLS encryption
     $mail->Port       = 587;                                     // TCP port to connect to
 
