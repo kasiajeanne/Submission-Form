@@ -54,4 +54,10 @@ if ($file_error === UPLOAD_ERR_OK && is_uploaded_file($file_tmp_name)) {
 } else {
     echo "Error uploading file. Please try again.";
 }
+
+if (mail($to, $subject, "Test email body")) {
+    echo "Email sent!";
+} else {
+    echo "Email failed.";
+}
 ?>
