@@ -1,68 +1,72 @@
 <?php
-// Include PHPMailer classes
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-require 'phpmailer/PHPMailerAutoload.php';  // Adjust the path if needed
+require 'vendor/autoload.php';
 
 $to = 'kasia@enablemusic.group';
 $subject = 'New Submission from Enable Music Group Form';
 
-// Collect form data
-$name = $_POST['name'] ?? '';
-$email = $_POST['email'] ?? '';
-$phone = $_POST['phone'] ?? '';
-$pieces = $_POST['pieces'] ?? '';
-$delivery_deadline = $_POST['delivery_deadline'] ?? '';
-$hard_deadline = isset($_POST['hard_deadline']) ? 'Yes' : 'No';
+// Check if form data exists
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+    $pieces = $_POST['pieces'] ?? '';
+    $delivery_deadline = $_POST['delivery_deadline'] ?? '';
+    $hard_deadline = isset($_POST['hard_deadline']) ? 'Yes' : 'No';
 
-// Handle file upload
-$file_tmp_name = $_FILES['design_file']['tmp_name'] ?? '';
-$file_name = $_FILES['design_file']['name'] ?? '';
-$file_type = $_FILES['design_file']['type'] ?? '';
-$file_error = $_FILES['design_file']['error'] ?? '';
+    // Handle file upload
+    $file_tmp_name = $_FILES['design_file']['tmp_name'] ?? '';
+    $file_name = $_FILES['design_file']['name'] ?? '';
+    $file_error = $_FILES['design_file']['error'] ?? '';
 
-// Set up PHPMailer
-$mail = new PHPMailer(true);
-
-try {
-    // Server settings
-    $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                      // Set the SMTP server (use your SMTP server)
-    $mail->SMTPAuth   = true;                                    // Enable SMTP authentication
-    $mail->Username   = 'kasia@example.com';                // SMTP username
-    $mail->Password   = 'ChuckBassV1P3d!t';                   // SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;          // Enable TLS encryption
-    $mail->Port       = 587;                                     // TCP port to connect to
-
-    // Recipients
-    $mail->setFrom($email, $name);                               // Sender's email and name
-    $mail->addAddress($to);                                      // Add recipient's email
-
-    // Content
-    $mail->isHTML(false);                                        // Set email format to plain text
-    $mail->Subject = $subject;
-    $email_body = "Name: $name\n";
-    $email_body .= "Email: $email\n";
-    $email_body .= "Phone #: $phone\n";
-    $email_body .= "Number of Pieces: $pieces\n";
-    $email_body .= "Delivery Deadline: $delivery_deadline\n";
-    $email_body .= "Hard Deadline: $hard_deadline\n";
-    $mail->Body    = $email_body;
-
-    // Attach the file
-    if ($file_error === UPLOAD_ERR_OK && is_uploaded_file($file_tmp_name)) {
-        $mail->addAttachment($file_tmp_name, $file_name); // Add attachment
+    if ($file_error !== UPLOAD_ERR_OK) {
+        echo "Error uploading file. Please try again.";
+        exit;
     }
 
-    // Send the email
-    $mail->send();
+    // Configure PHPMailer
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'your_gmail_username@gmail.com';
+        $mail->Password = 'your_gmail_password';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
 
-    // Redirect to success page if email is sent successfully
-    header("Location: success.php");
-    exit(); // Make sure no further code is executed
+        // Email settings
+        $mail->setFrom($email, $name);
+        $mail->addAddress($to);
+        $mail->Subject = $subject;
 
-} catch (Exception $e) {
-    echo "There was an error sending your submission. Mailer Error: {$mail->ErrorInfo}";
+        // Message body
+        $email_body = "Name: $name\n";
+        $email_body .= "Email: $email\n";
+        $email_body .= "Phone #: $phone\n";
+        $email_body .= "Number of Pieces: $pieces\n";
+        $email_body .= "Delivery Deadline: $delivery_deadline\n";
+        $email_body .= "Hard Deadline: $hard_deadline\n";
+
+        $mail->Body = $email_body;
+
+        // Attach file
+        $mail->addAttachment($file_tmp_name, $file_name);
+
+        // Send the email
+        if ($mail->send()) {
+            echo "<script>alert('Thank you for your submission! We\\'ll get in touch soon.'); window.location.href = 'success.html';</script>";
+        } else {
+            echo "There was an error sending your submission. Please try again.";
+        }
+    } catch (Exception $e) {
+        echo "Mailer Error: " . $mail->ErrorInfo;
+    }
 }
 ?>
