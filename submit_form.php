@@ -1,5 +1,5 @@
 <?php
-$to = 'your-email@example.com';
+$to = 'kasia@enablemusic.group';
 $subject = 'New Submission from Enable Music Group Form';
 
 // Collect the form data
