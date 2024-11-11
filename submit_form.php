@@ -47,17 +47,13 @@ if ($file_error === UPLOAD_ERR_OK && is_uploaded_file($file_tmp_name)) {
 
     // Send the email
     if (mail($to, $subject, $message, $headers)) {
-        echo "Thank you for your submission! We'll get in touch soon.";
+        // Redirect to the success page
+        header("Location: success.php");
+        exit();  // Ensure no further code is executed
     } else {
         echo "There was an error sending your submission. Please try again.";
     }
 } else {
     echo "Error uploading file. Please try again.";
-}
-
-if (mail($to, $subject, "Test email body")) {
-    echo "Email sent!";
-} else {
-    echo "Email failed.";
 }
 ?>
