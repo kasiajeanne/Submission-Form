@@ -7,9 +7,9 @@ ini_set('error_log', __DIR__ . '/error_log.txt');
 // Include PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require 'path/to/PHPMailer/src/Exception.php';
-require 'path/to/PHPMailer/src/PHPMailer.php';
-require 'path/to/PHPMailer/src/SMTP.php';
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
 
 // Initialize PHPMailer
 $mail = new PHPMailer(true);
