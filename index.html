@@ -11,7 +11,7 @@
   <style>
     @font-face {
       font-family: 'Gotham Black';
-      src: url('/fonts/gotham-bold-webfont.woff2') format('woff2');
+      src: url('path-to-your-gotham-black-font-file.woff2') format('woff2');
       font-weight: bold;
       font-style: normal;
     }
@@ -25,11 +25,11 @@
   <!-- Form Header -->
   <header class="w-full max-w-xl text-center mb-10">
     <h1 class="text-4xl font-gotham-black mb-2">EMG Merch</h1>
-    <p class="font-roboto">when the "M" in EMG stands for "Merch"-- submit your project.</p>
+    <p class="font-roboto">when the "m" in EMG becomes "merch"-- submit your project.</p>
   </header>
 
   <!-- Submission Form -->
-  <form action="submit_form.php" method="POST" class="w-full max-w-xl bg-black p-6 shadow-lg font-roboto space-y-4 border border-gray-700">
+  <form action="submit_form.php" method="POST" enctype="multipart/form-data" class="w-full max-w-xl bg-black p-6 shadow-lg font-roboto space-y-4 border border-gray-700">
     <!-- Name -->
     <label for="name" class="block text-white font-gotham-black">Name</label>
     <input type="text" name="name" id="name" class="w-full p-2 border border-gray-700 text-white bg-transparent font-roboto" required>
@@ -45,6 +45,10 @@
     <!-- Number of Pieces -->
     <label for="pieces" class="block text-white font-gotham-black">Number of Pieces</label>
     <input type="number" name="pieces" id="pieces" class="w-full p-2 border border-gray-700 text-white bg-transparent font-roboto" required>
+
+    <!-- Design File (File submission added back) -->
+    <label for="design_file" class="block text-white font-gotham-black">Design File</label>
+    <input type="file" name="design_file" id="design_file" class="w-full p-2 border border-gray-700 text-white bg-transparent font-roboto" accept=".jpg,.jpeg,.png,.pdf,.ai" required>
 
     <!-- Delivery Deadline -->
     <label for="delivery_deadline" class="block text-white font-gotham-black">Delivery Deadline</label>
