@@ -1,61 +1,65 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Enable error reporting and log errors to a file
+ini_set('display_errors', 0);
 ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/error_log.txt');  // Saves errors to error_log.txt in the same directory
-require 'vendor/autoload.php';
+ini_set('error_log', __DIR__ . '/error_log.txt');
+
+// Include PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-// Enable error reporting
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-$to = 'kasia@enablemusic.group';
-$subject = 'New Submission from Enable Music Group Form';
-
-$name = $_POST['name'] ?? '';
-$email = $_POST['email'] ?? '';
-$phone = $_POST['phone'] ?? '';
-$pieces = $_POST['pieces'] ?? '';
-$delivery_deadline = $_POST['delivery_deadline'] ?? '';
-$hard_deadline = isset($_POST['hard_deadline']) ? 'Yes' : 'No';
+require 'path/to/PHPMailer/src/Exception.php';
+require 'path/to/PHPMailer/src/PHPMailer.php';
+require 'path/to/PHPMailer/src/SMTP.php';
 
 // Initialize PHPMailer
 $mail = new PHPMailer(true);
+
 try {
-    // SMTP Settings for Gmail
+    // Form data
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $phone = $_POST['phone'] ?? '';
+    $pieces = $_POST['pieces'] ?? '';
+    $delivery_deadline = $_POST['delivery_deadline'] ?? '';
+    $hard_deadline = isset($_POST['hard_deadline']) ? 'Yes' : 'No';
+
+    // Email content
+    $to = 'kasia@enablemusic.group';
+    $subject = 'New Submission from Enable Music Group Form';
+    $email_body = "Name: $name\n";
+    $email_body .= "Email: $email\n";
+    $email_body .= "Phone #: $phone\n";
+    $email_body .= "Number of Pieces: $pieces\n";
+    $email_body .= "Delivery Deadline: $delivery_deadline\n";
+    $email_body .= "Hard Deadline: $hard_deadline\n";
+
+    // SMTP configuration
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
     $mail->Username = 'kasia@enablemusic.group';
-        $mail->Password = 'tknj nqqq nkgm fyhb';  // Your Gmail app password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Password = 'tknj nqqq nkgm fyhb';
+    $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
 
-    // Email headers
+    // Recipients
     $mail->setFrom($email, $name);
     $mail->addAddress($to);
+
+    // Email content
     $mail->Subject = $subject;
+    $mail->Body    = $email_body;
 
-    // Body
-    $body = "Name: $name\nEmail: $email\nPhone #: $phone\nNumber of Pieces: $pieces\nDelivery Deadline: $delivery_deadline\nHard Deadline: $hard_deadline";
-    $mail->Body = $body;
-
-    // Handle File Attachment
-    if (!empty($_FILES['design_file']['tmp_name'])) {
-        $uploadfile = tempnam(sys_get_temp_dir(), sha1($_FILES['design_file']['name']));
-        move_uploaded_file($_FILES['design_file']['tmp_name'], $uploadfile);
-        $mail->addAttachment($uploadfile, $_FILES['design_file']['name']);
+    // Send email
+    if ($mail->send()) {
+        // Redirect to success page
+        header('Location: success.html');
+        exit;
+    } else {
+        echo "Message could not be sent. Please try again later.";
     }
-
-    // Send Email
-    $mail->send();
-    // Redirect to success page
-    header('Location: success.html');
-    exit();
 } catch (Exception $e) {
-    echo "Message could not be sent. Error: {$mail->ErrorInfo}";
+    error_log("Mailer Error: " . $mail->ErrorInfo);
+    echo "There was an error processing your request. Please try again.";
 }
 ?>

@@ -5,51 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Enable Music Group - Submission Form</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
   <style>
-    /* Custom styles */
-    @font-face {
-      font-family: 'Gotham Bold';
-      src: url('/fonts/gotham-bold-webfont.woff2') format('woff2');
-      font-weight: bold;
-      font-style: normal;
-    }
-    .font-gotham-bold { font-family: 'Gotham Bold', sans-serif; }
     .font-roboto { font-family: 'Roboto', sans-serif; }
   </style>
 </head>
-<body class="bg-black text-white flex flex-col items-center min-h-screen p-6">
+<body class="bg-black text-white flex flex-col items-center min-h-screen p-6 font-roboto">
 
   <!-- Form Header -->
   <header class="w-full max-w-xl text-center mb-10">
-    <h1 class="text-4xl font-gotham-bold mb-2">EMG merch</h1>
-    <p class="font-roboto">when the "m" in EMG becomes "merch"-- submit your project.</p>
+    <h1 class="text-4xl font-bold mb-2">EMG Merch</h1>
+    <p>When the "M" in EMG becomes "merch" — submit your project.</p>
   </header>
 
   <!-- Submission Form -->
-  <form action="submit_form.php" method="POST" enctype="multipart/form-data" class="w-full max-w-xl bg-black p-6 shadow-lg font-roboto space-y-4 border border-gray-700">
-    <label class="block text-white">Name</label>
-    <input type="text" name="name" class="w-full p-2 border border-gray-700 text-white bg-transparent" required>
+  <form action="submit_form.php" method="POST" class="w-full max-w-xl bg-black p-6 shadow-lg space-y-4 border border-gray-700 font-roboto">
+    <!-- Name -->
+    <label for="name" class="block text-white">Name</label>
+    <input type="text" name="name" id="name" class="w-full p-2 border border-gray-700 text-white bg-transparent" required>
 
-    <label class="block text-white">Email Address</label>
-    <input type="email" name="email" class="w-full p-2 border border-gray-700 text-white bg-transparent" required>
+    <!-- Email Address -->
+    <label for="email" class="block text-white">Email Address</label>
+    <input type="email" name="email" id="email" class="w-full p-2 border border-gray-700 text-white bg-transparent" required>
 
-    <label class="block text-white">Phone #</label>
-    <input type="tel" name="phone" class="w-full p-2 border border-gray-700 text-white bg-transparent" required>
+    <!-- Phone Number -->
+    <label for="phone" class="block text-white">Phone #</label>
+    <input type="tel" name="phone" id="phone" class="w-full p-2 border border-gray-700 text-white bg-transparent" required>
 
-    <label class="block text-white">Number of Pieces</label>
-    <input type="number" name="pieces" class="w-full p-2 border border-gray-700 text-white bg-transparent" required>
+    <!-- Number of Pieces -->
+    <label for="pieces" class="block text-white">Number of Pieces</label>
+    <input type="number" name="pieces" id="pieces" class="w-full p-2 border border-gray-700 text-white bg-transparent" required>
 
-    <label class="block text-white">Design File</label>
-    <input type="file" name="design_file" class="w-full p-2 border border-gray-700 text-white bg-transparent" accept=".jpg,.jpeg,.png,.pdf,.ai" required>
+    <!-- Delivery Deadline -->
+    <label for="delivery_deadline" class="block text-white">Delivery Deadline</label>
+    <input type="date" name="delivery_deadline" id="delivery_deadline" class="w-full p-2 border border-gray-700 text-white bg-transparent" required>
 
-    <label class="block text-white">Delivery Deadline</label>
-    <input type="date" name="delivery_deadline" class="w-full p-2 border border-gray-700 text-white bg-transparent" required>
-
+    <!-- Hard Deadline (checkbox) -->
     <div class="flex items-center">
-      <input type="checkbox" name="hard_deadline" class="mr-2 border-gray-700 bg-transparent">
-      <label class="text-white">Hard Deadline</label>
+        <input type="checkbox" name="hard_deadline" id="hard_deadline" class="mr-2 border-gray-700 bg-transparent">
+        <label for="hard_deadline" class="text-white">Hard Deadline</label>
     </div>
 
+    <!-- Submit Button -->
     <button type="submit" class="text-white font-bold py-2 px-4 mt-4 w-full border border-gray-700">Submit</button>
   </form>
 
