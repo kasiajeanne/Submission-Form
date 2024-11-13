@@ -7,9 +7,9 @@ ini_set('error_log', __DIR__ . '/error_log.txt');
 // Include PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require 'PHPMailer-master/src/Exception.php';
-require 'PHPMailer-master/src/PHPMailer.php';
-require 'PHPMailer-master/src/SMTP.php';
+require '/Users/kasiasanscartier/Library/CloudStorage/GoogleDrive-kasiasanscartier@gmail.com/My Drive/Freeing Up Space [June 16th, 2024]/Desktop/Websites/Submission Form/PHPMailer-master/src/Exception.php';
+require '/Users/kasiasanscartier/Library/CloudStorage/GoogleDrive-kasiasanscartier@gmail.com/My Drive/Freeing Up Space [June 16th, 2024]/Desktop/Websites/Submission Form/PHPMailer-master/src/PHPMailer.php';
+require '/Users/kasiasanscartier/Library/CloudStorage/GoogleDrive-kasiasanscartier@gmail.com/My Drive/Freeing Up Space [June 16th, 2024]/Desktop/Websites/Submission Form/PHPMailer-master/src/SMTP.php';
 
 // Initialize PHPMailer
 $mail = new PHPMailer(true);
